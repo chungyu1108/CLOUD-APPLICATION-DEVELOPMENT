@@ -1,0 +1,18 @@
+[
+    {
+      "subject": "CS",
+      "number": "101",
+      "title": "Introduction to Computer Science",
+      "term": "sp22",
+      "instructorId": 2
+    },
+    {
+      "subject": "MATH",
+      "number": "201",
+      "title": "Calculus I",
+      "term": "sp22",
+      "instructorId": 2
+    }
+  ]
+
+  

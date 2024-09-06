@@ -1,0 +1,71 @@
+1.5
+sub $t0, $a0, $a1		IF	ID	EX	MEM	WB
+nop
+nop
+add $t0, $t0, $a2					IF	ID	EX	MEM	WB
+nop
+nop
+or $v0, $a0, $t0								IF	ID	EX	MEM	WB
+
+
+2.1
+sub $t0, $a0, $a1		IF	ID	EX	MEM	WB
+add $t0, $t0, $a2			IF	ID	EX	MEM	WB
+or $v0, $a0, $t0				IF	ID	EX	MEM	WB
+
+2.2:
+Question 1.5 took 11 cycles, 2.1 took 7
+30% of 7 = 2.1, 7 + 2.1 = 9.1
+11/9.1 = 1.2087
+
+
+3.1:
+We decide weather to branch in the MEM stage (366 of textbook fig 4.61), aka clock cycle 4, so we need to stall 3 times
+IF	ID	EX	MEM
+			IF	ID 3 stalls?
+
+3.2: Flushing stuff on branch taken means we expected branch not taken
+
+3.3: 
+20%: 1
+80%: It takes 4 cycles (1 + the 3 nops from 3.1) 
+(4*.8) + (1 * .2) = 3.4
+
+3.4:
+83%: 1.6386
+17%: 3.4
+(0.83 * 1.6386) + (0.17 * 3.4)	
+Average is 1.9380
+
+3.5
+It was (4*.8) + (1 * .2) = 3.4, but now it is (2*.8) + (1 * .2) = 1.8, because we are able to get rid of two nops with adding comparators to the ID stage.
+
+3.6
+Normal 1.6386 for non branching instructions (83%), 
+but now in the 17% of branching instructions, only 40% of those take 2 CPI, and 60% take 1 CPI since the delay slot can be filled with instructions.
+(0.83 * 1.6386) + (0.068 * 2) + (0.102 * 1) = 1.598
+
+Question 4:
+The 7 stage pipeline just takes two extra cycles?
+With the comparator, we know if it is equal or not equal in the ID stage
+"The branch being predicted untaken, meaning you have to add nop slots to make sure it doesn't mess anything up"
+SEARCH:  lw   $r5, 0($r3)             /I1 Load item				IF1	IF2	ID	EX	MEM1	MEM2	WB
+         bne  $r5, $r2, NOMATCH       /I2 Check for match					IF1	IF2	ID	EX	MEM1	MEM2	WB		
+         addi $r1, $r1, #1            /I3 Count matches							IF1	IF2	ID	EX	MEM1	MEM2	WB
+NOMATCH: addi $r3, $r3, #4            /I4 Next item								IF1	IF2	ID	EX	MEM1	MEM2	WB
+         bne  $r4, $r3, SEARCH        /I5 Continue until all items							IF1	IF2	ID	
+4.1
+MEM1 of lw forwards to ID of bne, requiring one nop
+
+4.2
+We need to cancel both addi's that were loaded, making 2 nops
+
+4.3
+0, we need to wait for the EX to catch up with bne's ID for forwarding, which it does with no nop statements
+
+4.4
+SEARCH:  lw   $r5, 0($r3)             /I1 Load item				cycle 1, 2 (lw and one nop)		
+         bne  $r5, $r2, NOMATCH       /I2 Check for match			cycle 3	
+         addi $r1, $r1, #1            /I3 Count matches				cycle 4, 5 (2 nops)	
+NOMATCH: addi $r3, $r3, #4            /I4 Next item				cycle 6					
+         bne  $r4, $r3, SEARCH        /I5 Continue until all items		cycle 7

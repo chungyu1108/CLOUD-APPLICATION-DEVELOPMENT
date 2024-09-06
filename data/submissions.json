@@ -1,0 +1,20 @@
+[
+    {
+      "assignmentId": 1,
+      "studentId": 1,
+      "grade": 85.5,
+      "file": "submission1.pdf"
+    },
+    {
+      "assignmentId": 2,
+      "studentId": 2,
+      "grade": 92,
+      "file": "submission2.docx"
+    },
+    {
+      "assignmentId": 1,
+      "studentId": 3,
+      "grade": 78,
+      "file": "submission3.txt"
+    }
+  ]

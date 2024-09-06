@@ -1,0 +1,16 @@
+[
+    {
+      "courseId": 1,
+      "title": "Assignment 1",
+      "points": 100,
+      "due": "2022-06-14T17:00:00-07:00"
+    },
+    {
+      "courseId": 1,
+      "title": "Assignment 2",
+      "points": 80,
+      "due": "2022-06-21T17:00:00-07:00"
+    }
+  ]
+
+
